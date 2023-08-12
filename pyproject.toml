@@ -1,0 +1,27 @@
+[tool.black]
+line-length = 88
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 88
+
+exclude = [
+    ".git",
+    ".vscode",
+    ".venv",
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402"]
