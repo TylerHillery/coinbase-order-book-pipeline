@@ -1,3 +1,4 @@
 dbt-materialize==1.0.4
 streamlit
 kafka-python
+websocket-client

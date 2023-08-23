@@ -1,3 +1,2 @@
 kafka-python
-requests
-schedule
+websocket-client
