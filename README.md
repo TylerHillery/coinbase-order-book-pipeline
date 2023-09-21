@@ -2,9 +2,30 @@
 This project demonstrates a data pipeline using the [Coinbase websocket feed](https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel) to display and analyze their order book in real time.
 
 ## Reference Commands
-```bash
 
+### Start the services
+```bash
+docker-compose up -d
 ```
+
+### Stop the data generator
+```bash
+docker stop data-generator 
+```
+
+### Access the dbt cli
+```bash
+docker exec -it dbt /bin/bash
+```
+
+### Access the Materialize cli 
+```bash
+docker exec -it mzcli psql -U materialize -h materialized -p 6875 materialize
+```
+
+## Ports
+- http://localhost:8080/ Redpanda Console
+- http://localhost:8000/ dbt Docs
 
 ## Resources & References
 
