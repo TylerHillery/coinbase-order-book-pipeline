@@ -1,4 +1,4 @@
-# Analyizing Coinbase Order Book in Real Time
+# Analyzing Coinbase Order Book in Real Time
 This project demonstrates a data pipeline using the [Coinbase websocket feed](https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel) to display and analyze their order book in real time.
 
 ## Resources & References
