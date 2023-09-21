@@ -1,6 +1,11 @@
 # Analyzing Coinbase Order Book in Real Time
 This project demonstrates a data pipeline using the [Coinbase websocket feed](https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel) to display and analyze their order book in real time.
 
+## Reference Commands
+```bash
+
+```
+
 ## Resources & References
 
 These are resources and references I used when building this project.
@@ -12,3 +17,4 @@ These are resources and references I used when building this project.
 - [How to build a real-time crypto tracker with Redpanda and QuestDB](https://redpanda.com/blog/real-time-crypto-tracker-questdb-redpanda)
 - [Online Machine Learning in Practice: Interactive dashboards to detect data anomalies in real time](https://bytewax.io/blog/online-machine-learning-in-practice-interactive-dashboards-to-detect-data-anomalies-in-real-time)
 - [Top K by group](https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on)
+- [Materialize + Redpanda + dbt Hack Day](https://github.com/MaterializeInc/mz-hack-day-2022)
