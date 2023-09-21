@@ -11,11 +11,11 @@ stg_coinbase_order_book as (
 
 nbb as (
     select
-        distinct on(product_id),
-        product_id,
+        distinct on(product_id) product_id,
         side,
         price,
-        size
+        size,
+        notional_size
     from 
         stg_coinbase_order_book
     where
@@ -24,13 +24,13 @@ nbb as (
         product_id, price desc
 ),
 
-nbb as (
+nbo as (
     select
-        distinct on(product_id),
-        product_id,
+        distinct on(product_id) product_id,
         side,
         price,
-        size
+        size,
+        notional_size
     from 
         stg_coinbase_order_book
     where
@@ -49,15 +49,17 @@ nbbo as (
     select
         product_id,
         --nbb
-        case when side = 'buy' then price           end as nbb,
-        case when side = 'buy' then size            end as nbb_size,
-        case when side = 'buy' then notional_size   end as nbb_notional_size,
+        max(case when side = 'buy' then price end)          as nbb,
+        max(case when side = 'buy' then size end)           as nbb_size,
+        max(case when side = 'buy' then notional_size end)  as nbb_notional_size,
         --nbo
-        case when side = 'sell' then price           end as nbo,
-        case when side = 'sell' then size            end as nbo_size,
-        case when side = 'sell' then notional_size   end as nbo_notional_size,
+        max(case when side = 'sell' then price end)         as nbo,
+        max(case when side = 'sell' then size end)          as nbo_size,
+        max(case when side = 'sell' then notional_size end) as nbo_notional_size
     from
         unioned
+    group by
+        product_id
 ),
 
 final as (
@@ -65,7 +67,7 @@ final as (
         *,
         (nbb + nbo) / 2 as nbbo_midpoint
     from
-        final
+        nbbo
 )
 
 select * from final
