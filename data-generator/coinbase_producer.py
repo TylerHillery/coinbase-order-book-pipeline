@@ -88,7 +88,7 @@ def coinbase_ws_producer(ws_uri,ws_channels,product_ids):
                 print(order) #log
             prod.flush()
         else:
-            raise Exception(f"Unexpected value for 'type': {data['type']}")
+            print(f"Unexpected value for 'type': {data['type']}")
 
 if __name__ == "__main__":
     ws_uri= "wss://ws-feed.exchange.coinbase.com"
