@@ -1,7 +1,9 @@
 version: 2
 
 sources:
-  - name: redpanda
-    schema: public
+  - name: coinbase
+    description: Data ingested from Coinbase
+    schema: public_source_coinbase
     tables:
-      - name: coinbase_order_book
+      - name: level2_channel
+        description: '{{ doc("source_coinbase_level2_channel") }}'

@@ -36,24 +36,24 @@ def coinbase_ws_producer(ws_uri,ws_channels,product_ids):
         if data["type"] == "snapshot":
             
             asks = [{
-                    "event_type": "snapshot",
+                    "message_type": "snapshot",
+                    "message_key": data["product_id"] + "-sell-" + str(order[0]),
                     "product_id": data["product_id"],
                     "side": "sell",
                     "price": order[0],
                     "size": order[1],
-                    "time": format_datetime(data["time"]),
-                    "key": data["product_id"] + "-ask-" + str(order[0])
+                    "message_created_at_utc": format_datetime(data["time"])
                     } for order in data["asks"]
                 ]
             
             bids = [{
-                    "event_type": "snapshot",
+                    "message_type": "snapshot",
+                    "message_key": data["product_id"] + "-buy-" + str(order[0]),
                     "product_id": data["product_id"],
                     "side": "buy",
                     "price": order[0],
                     "size": order[1],
-                    "time": format_datetime(data["time"]),
-                    "key": data["product_id"] + "-bid-" + str(order[0])
+                    "message_created_at_utc": format_datetime(data["time"])
                     } for order in data["bids"]
                 ]
             
@@ -61,8 +61,8 @@ def coinbase_ws_producer(ws_uri,ws_channels,product_ids):
 
             for order in order_book:
                 prod.send(
-                    topic="coinbase_order_book", 
-                    key=order["key"].encode("utf-8"),
+                    topic="coinbase_level2_channel", 
+                    key=order["message_key"].encode("utf-8"),
                     value=json.dumps(order,default=json_serializer,ensure_ascii=False).encode("utf-8")
                 )
                 print(order) #log
@@ -70,19 +70,19 @@ def coinbase_ws_producer(ws_uri,ws_channels,product_ids):
 
         elif data["type"] == "l2update":
             orders = [{
-                    "event_type": "l2update",
+                    "message_type": "l2update",
+                    "message_key": data["product_id"] + "-" + order[0] + "-" + str(order[1]),
                     "product_id": data["product_id"],
                     "side": order[0],
                     "price": order[1],
                     "size": order[2],
-                    "time": format_datetime(data["time"]),
-                    "key": data["product_id"] + "-" + order[0] + "-" + str(order[1])
+                    "message_created_at_utc": format_datetime(data["time"])
                     } for order in data["changes"]
                 ]
             for order in orders:
                 prod.send(
-                        topic="coinbase_order_book", 
-                        key=order["key"].encode("utf-8"),
+                        topic="coinbase_level2_channel", 
+                        key=order["message_key"].encode("utf-8"),
                         value=json.dumps(order,default=json_serializer,ensure_ascii=False).encode("utf-8")
                     )
                 print(order) #log

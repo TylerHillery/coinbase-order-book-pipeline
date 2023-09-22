@@ -1,7 +1,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'stock_stream'
+name: 'coinbase_order_book'
 version: '1.0.0'
 config-version: 2
 
@@ -13,16 +13,14 @@ model-paths: ["models"]
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
-  - "dbt_modules"
+  - "dbt_packages"
 
 models:
-  examples:
-    +enabled: true
-    
-  templates:
-    +enabled: false 
-
+  coinbase_order_book:
+    sources:
+      coinbase:
+        +schema: source_coinbase
 tests:
-  project_name:
-    +store_failures: true
-    +schema: test
+  coinbase_order_book:
+    +store_failures: true 
+    +schema: tests

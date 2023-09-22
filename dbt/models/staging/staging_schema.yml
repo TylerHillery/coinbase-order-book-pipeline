@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_coinbase_level2_channel
+    description: >
+      Tranforms the coinbase_order_book source into structured form and
+      removes records where size = 0. Also adds new column called notional_size
+      which takes price * size. 
+    columns:
+      - name: message_type
+        description: '{{ doc("message_type") }}'
+        tests:
+          - accepted_values:
+              values: ['snapshot', 'l2update']
+      - name: message_key
+        description: '{{ doc("message_key") }}'
+        tests:
+          - unique
+      - name: product_id
+        description: '{{ doc("product_id") }}'
+      - name: side
+        description: '{{ doc("side") }}'
+      - name: price
+        description: '{{ doc("price") }}'
+      - name: size
+        description: '{{ doc("size") }}'
+      - name: notional_size
+        description: '{{ doc("notional_size") }}'
+      - name: message_created_at_utc
+        description: '{{ doc("message_created_at_utc") }}'

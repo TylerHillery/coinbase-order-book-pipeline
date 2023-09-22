@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: fct_coinbase_nbbo
+    description: >
+      One record per product_id which provides metrics on the national
+      best bid (buy) and offer (sell) abbreviated as NBB, NBO & NBBO. 
+      
+      Takes the record with highest price for bids (NBB) and the lowest price for 
+      offers (NBO) and pivots the data on product_id. 
+
+      NOTE: 
+      This isn't the real NBBO since we are only looking at one exhange,
+      so it's not techincally the "national" it would be the
+      "exchange best bid & offer" but I am was too lazy to change all the
+      column names.
+    columns:
+      - name: product_id
+        description: '{{ doc("product_id") }}'
+      - name: nbb_price
+        description: '{{ doc("nbbo_price") }}'
+      - name: nbb_size
+        description: '{{ doc("nbbo_size") }}'
+      - name: nbb_notional_size
+        description: '{{ doc("nbbo_notional_size") }}'
+      - name: nbb_last_updated_at_utc
+        description: '{{ doc("nbbo_last_updated_at_utc") }}'
+      - name: nbo_price
+        description: '{{ doc("nbbo_price") }}'
+      - name: nbo_size
+        description: '{{ doc("nbbo_size") }}'
+      - name: nbo_notional_size
+        description: '{{ doc("nbbo_notional_size") }}'
+      - name: nbo_last_updated_at_utc
+        description: '{{ doc("nbbo_last_updated_at_utc") }}'
+      - name: nbbo_midpoint
+        description: '{{ doc("nbbo_midpoint") }}'
