@@ -72,7 +72,8 @@ services:
       - materialized
   
   dbt:
-    image: materialize/dbt-materialize:v0.26.0
+    image: dbt-materialize:v1.1.1
+    build: ./dbt
     container_name: dbt
     working_dir: /usr/app/dbt
     init: true
