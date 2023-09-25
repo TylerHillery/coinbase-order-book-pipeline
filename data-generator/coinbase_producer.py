@@ -93,7 +93,7 @@ def coinbase_ws_producer(ws_uri,ws_channels,product_ids):
 if __name__ == "__main__":
     ws_uri= "wss://ws-feed.exchange.coinbase.com"
     ws_channels = ["level2_batch"]
-    product_ids = ["XLM-USD","BTC-USD"]
+    product_ids = ["BTC-USD", "ETH-USD", "DOGE-USD"]
 
     coinbase_ws_producer(ws_uri,ws_channels,product_ids)
     

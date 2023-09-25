@@ -5,46 +5,8 @@
 }}
 
 with
-stg_coinbase_order_book as (
-    select * from {{ ref('stg_coinbase_level2_channel') }}
-),
-
-nbb as (
-    select
-        distinct on(product_id) product_id,
-        side,
-        price,
-        size,
-        notional_size,
-        message_created_at_utc
-    from 
-        stg_coinbase_order_book
-    where
-        side = 'buy'
-    order by
-        product_id, price desc
-),
-
-nbo as (
-    select
-        distinct on(product_id) product_id,
-        side,
-        price,
-        size,
-        notional_size,
-        message_created_at_utc
-    from 
-        stg_coinbase_order_book
-    where
-        side = 'sell'
-    order by
-        product_id, price asc
-),
-
-unioned as (
-    select * from nbb
-    union all 
-    select * from nbo
+int_coinbase_nbbo as (
+    select * from {{ ref('int_coinbase_nbbo') }}
 ),
 
 nbbo as (
@@ -67,7 +29,7 @@ nbbo as (
         max(case when side = 'sell' then notional_size end)             as nbo_notional_size,
         max(case when side = 'sell' then message_created_at_utc end)    as nbo_last_updated_at_utc
     from
-        unioned
+        int_coinbase_nbbo
     group by
         product_id
 ),
@@ -83,7 +45,8 @@ final as (
         nbo_size,
         nbo_notional_size,
         nbo_last_updated_at_utc,
-        (nbb_price + nbo_price) / 2 as nbbo_midpoint
+        (nbb_price + nbo_price) / 2 as nbbo_midpoint,
+        nbo_price - nbb_price as nbbo_spread
     from
         nbbo
 )
