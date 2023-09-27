@@ -3,6 +3,11 @@ This project demonstrates a data pipeline using the [Coinbase websocket feed](ht
 
 ## Reference Commands
 
+### Build docker images
+```bash
+docker-compose build
+```
+
 ### Start the services
 ```bash
 docker-compose up -d
@@ -26,6 +31,7 @@ docker exec -it mzcli psql -U materialize -h materialized -p 6875 materialize
 ## Ports
 - http://localhost:8080/ Redpanda Console
 - http://localhost:8000/ dbt Docs
+- http://localhost:8501/ Streamlit App
 
 ## Resources & References
 
@@ -37,5 +43,8 @@ These are resources and references I used when building this project.
 - [Breathing life into Streamlit with Materialize & Redpanda](https://medium.com/@danthelion/breathing-life-into-streamlit-with-materialize-redpanda-1c29282cc72b)
 - [How to build a real-time crypto tracker with Redpanda and QuestDB](https://redpanda.com/blog/real-time-crypto-tracker-questdb-redpanda)
 - [Online Machine Learning in Practice: Interactive dashboards to detect data anomalies in real time](https://bytewax.io/blog/online-machine-learning-in-practice-interactive-dashboards-to-detect-data-anomalies-in-real-time)
-- [Top K by group](https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on)
+- [Materialize Top K by group](https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on)
 - [Materialize + Redpanda + dbt Hack Day](https://github.com/MaterializeInc/mz-hack-day-2022)
+- [Pandas Table Viz](https://pandas.pydata.org/docs/user_guide/style.html#Table-Styles)
+- [Plotly Filled Area Plots](https://plotly.com/python/filled-area-plots/)
+- [Deploy Streamlit using Docker](https://docs.streamlit.io/knowledge-base/tutorials/deploy/docker)
