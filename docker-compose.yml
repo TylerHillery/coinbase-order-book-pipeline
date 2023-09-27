@@ -6,6 +6,7 @@ services:
     container_name: data-generator
     depends_on:
       redpanda: { condition: service_healthy }
+  
   redpanda:
     command:
       - redpanda start
@@ -87,3 +88,15 @@ services:
     tty: true
     depends_on:
       - materialized
+
+  streamlit:
+    image: streamlit
+    build: ./app
+    container_name: streamlit
+    ports:
+      - 8501:8501
+    volumes:
+      - ./app/:/usr/app/streamlit
+    depends_on:
+      - materialized
+      - dbt
