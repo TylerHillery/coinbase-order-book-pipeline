@@ -143,11 +143,11 @@ with st.container():
     sell_columns = ["Price","Size"]
 
     c1.write(
-        utils.get_df_html(buy_df,buy_columns,selected_market,PRECISION,"cyan","#07888b","Bids",10),
+        utils.get_df_html(buy_df,buy_columns,selected_market,PRECISION,"cyan","#07888b","Bids","right", 10, ),
         unsafe_allow_html=True
     )
 
     c2.write(
-        utils.get_df_html(sell_df,sell_columns,selected_market,PRECISION,"#d718e3","#47084b","Asks",10),
+        utils.get_df_html(sell_df,sell_columns,selected_market,PRECISION,"#d718e3","#47084b","Asks","left", 10),
         unsafe_allow_html=True
     )

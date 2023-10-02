@@ -1,5 +1,4 @@
 import pandas as pd
-import psycopg2
 
 def get_nbbo_data(cur,selected_market):
     sql_query = """
@@ -105,7 +104,7 @@ def get_level2_data(cur, selected_market, bps_offset):
     return buy_df, sell_df
 
 
-def get_df_html(df, columns, selected_market, precision, text_color, bar_color, caption, rows=10):
+def get_df_html(df, columns, selected_market, precision, text_color, bar_color, caption, align, rows=10):
     df_html = (df[columns].head(rows)
                 .style
                 .applymap(lambda x: f"color: {text_color}", subset=["Price"])
@@ -140,6 +139,6 @@ def get_df_html(df, columns, selected_market, precision, text_color, bar_color, 
                 ])
                 .set_caption(caption)
                 .to_html(escape=False)
-        ).replace("<table ", "<table align='right'")
+        ).replace("<table ", f"<table align='{align}'")
     
     return df_html
